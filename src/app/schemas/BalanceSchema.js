@@ -5,6 +5,9 @@ const BalanceSchema = new mongoose.Schema(
     owner: {
       type: String,
     },
+    userInvited: {
+      type: String,
+    },
     participants: {
       type: Object,
     },

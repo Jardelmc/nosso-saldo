@@ -67,11 +67,13 @@ class FriendRequestController {
 
     const emailOwner = userOwner.email;
     const nameOwner = userOwner.name;
+    const emailInvited = req.email;
     const nameInvited = req.name;
 
     const balance = BalanceModel.getBalanceModel(
       emailOwner,
       nameOwner,
+      emailInvited,
       nameInvited
     );
 

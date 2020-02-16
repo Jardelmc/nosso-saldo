@@ -4,6 +4,7 @@ import authMiddleware from './app/middlewares/auth';
 
 import SessionController from './app/controllers/SessionController';
 import UserController from './app/controllers/UserController';
+import BalanceController from './app/controllers/BalanceController';
 import FriendRequestController from './app/controllers/FriendRequestController';
 
 const routes = new Router();
@@ -24,5 +25,8 @@ routes.post('/friendRequest/add', FriendRequestController.create);
 
 // Rota para aceitar solicitação
 routes.put('/friendRequest/update', FriendRequestController.update);
+
+// Rota para atualizar transações
+routes.put('/balance/update', BalanceController.update);
 
 export default routes;
