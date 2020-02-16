@@ -28,7 +28,7 @@ class SessionController {
 
       const signedUser = {
         name: user.name,
-        token: jwt.sign({ email }, process.env.SECRET_KEY),
+        token: jwt.sign({ email, name: user.name }, process.env.SECRET_KEY),
       };
 
       return res.status(200).json(signedUser);

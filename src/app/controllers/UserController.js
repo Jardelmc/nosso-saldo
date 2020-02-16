@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 
 import UserMongo from '../schemas/UserSchema';
+import FriendRequestMongo from '../schemas/FriendRequestSchema';
 import validateUser from '../validations/UserValidation';
 
 class UserController {
@@ -14,6 +15,8 @@ class UserController {
 
       try {
         await UserMongo.create(user);
+
+        await FriendRequestMongo.create({ email: user.email });
 
         return res
           .status(200)

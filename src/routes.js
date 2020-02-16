@@ -4,6 +4,7 @@ import authMiddleware from './app/middlewares/auth';
 
 import SessionController from './app/controllers/SessionController';
 import UserController from './app/controllers/UserController';
+import FriendRequestController from './app/controllers/FriendRequestController';
 
 const routes = new Router();
 
@@ -17,5 +18,11 @@ routes.get('/', async (req, res) => {
 
 // Rotas autenticadas
 routes.use(authMiddleware);
+
+// Rota para criar nova solicitação
+routes.post('/friendRequest/add', FriendRequestController.create);
+
+// Rota para aceitar solicitação
+routes.put('/friendRequest/update', FriendRequestController.update);
 
 export default routes;

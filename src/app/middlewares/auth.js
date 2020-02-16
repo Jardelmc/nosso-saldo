@@ -13,7 +13,8 @@ export default async (req, res, next) => {
 
   try {
     const decoded = await promisify(jwt.verify)(token, authConfig.secret);
-    req.login = decoded.login;
+    req.email = decoded.email;
+    req.name = decoded.name;
 
     return next();
   } catch (err) {

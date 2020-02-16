@@ -12,6 +12,10 @@ const UserSchema = new mongoose.Schema(
     password_hash: {
       type: String,
     },
+    balances: {
+      type: Array,
+      default: [],
+    },
   },
   { collection: 'user', timestamps: true }
 );
