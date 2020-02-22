@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+import { format } from 'date-fns';
 import BalanceMongo from '../schemas/BalanceSchema';
 
 /**
@@ -10,7 +11,8 @@ import BalanceMongo from '../schemas/BalanceSchema';
 export async function updateBalance(
   solicitedUpdateEmail,
   balanceId,
-  movimentation
+  movimentation,
+  createdBy
 ) {
   try {
     const balance = await BalanceMongo.findById(balanceId).lean();
@@ -33,14 +35,16 @@ export async function updateBalance(
       return false;
     }
 
-    movimentation.date = new Date();
+    movimentation.date = format(new Date(), 'dd/MM');
+
+    movimentation.createdBy = createdBy;
 
     historic.push(movimentation);
 
     balance.participants = participants;
     balance.historic = historic;
 
-    await BalanceMongo.updateOne(balance);
+    await BalanceMongo.updateOne({ _id: balanceId }, balance);
 
     return true;
   } catch (error) {

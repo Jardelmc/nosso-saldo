@@ -19,17 +19,6 @@ export async function addBalanceToUser(email1, email2, balanceId) {
 
 export async function removeFriendRequest(email, emailOwner) {
   try {
-    /* await FriendRequestMongo.updateOne(
-      { email },
-      {
-        $pull: {
-          solicitation: {
-            $in: [emailOwner],
-          },
-        },
-      }
-    ); */
-
     const friendRequest = await FriendRequestMongo.findOne({ email });
 
     const updatedSolicitations = friendRequest.solicitation.filter(

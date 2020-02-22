@@ -26,7 +26,16 @@ routes.post('/friendRequest/add', FriendRequestController.create);
 // Rota para aceitar solicitação
 routes.put('/friendRequest/update', FriendRequestController.update);
 
+// Rota para listar solicitações
+routes.get('/friendRequest/get', FriendRequestController.index);
+
 // Rota para atualizar transações
 routes.put('/balance/update', BalanceController.update);
+
+// Rota para listar amigos com transações
+routes.get('/balance', BalanceController.index);
+
+// Rota para listar histórico de transações
+routes.get('/balance/historic/:balanceId', BalanceController.indexHistoric);
 
 export default routes;

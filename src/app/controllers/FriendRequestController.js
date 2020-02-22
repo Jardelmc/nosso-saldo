@@ -9,6 +9,24 @@ import {
 } from '../util/CreateBalanceUtil';
 
 class FriendRequestController {
+  async index(req, res) {
+    const solicitations = await FriendRequestMongo.findOne({
+      email: req.email,
+    }).lean();
+
+    if (!solicitations) {
+      return res.status(200).json({ err: 'Erro' });
+    }
+
+    const { solicitation } = solicitations;
+
+    if (solicitation.length === 0) {
+      return res.status(200).json();
+    }
+
+    return res.status(200).json({ payload: solicitation });
+  }
+
   async create(req, res) {
     try {
       const { emailToInvite } = req.body;
@@ -28,6 +46,7 @@ class FriendRequestController {
       const newRequest = {
         name: req.name,
         email: req.email,
+        date: new Date(),
       };
 
       const hasAlreadySolicitation = friendRequest.solicitation.find(
@@ -46,7 +65,7 @@ class FriendRequestController {
       }
 
       return res
-        .status(400)
+        .status(200)
         .json({ err: 'Você já tem uma solicitação pendente' });
     } catch (error) {
       return res.status(400).json({ err: 'Erro ao enviar solicitação' });
