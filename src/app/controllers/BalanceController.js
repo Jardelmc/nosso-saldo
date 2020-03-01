@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-underscore-dangle */
@@ -5,6 +6,7 @@ import UserMongo from '../schemas/UserSchema';
 import BalanceMongo from '../schemas/BalanceSchema';
 
 import { updateBalance } from '../util/UpdateBalanceUtil';
+import formatValue from '../util/FormatValuesUtil';
 
 class BalanceController {
   async index(req, res) {
@@ -82,6 +84,10 @@ class BalanceController {
     const { historic } = balance;
 
     if (historic.length > 0) {
+      for (let i = 0; i <= historic.length - 1; i++) {
+        historic[i].cost = formatValue(historic[i].cost);
+      }
+
       return res.status(200).json({ payload: historic });
     }
 
