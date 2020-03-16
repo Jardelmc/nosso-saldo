@@ -39,6 +39,8 @@ export async function updateBalance(
 
     movimentation.createdBy = createdBy;
 
+    movimentation.createdByEmail = solicitedUpdateEmail;
+
     historic.push(movimentation);
 
     balance.participants = participants;

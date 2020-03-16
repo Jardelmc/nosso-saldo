@@ -4,6 +4,7 @@ import UserMongo from '../schemas/UserSchema';
 import BalanceMongo from '../schemas/BalanceSchema';
 import BalanceModel from '../models/BalanceModel';
 import {
+  checkIfAlreadyHasActiveBalance,
   addBalanceToUser,
   removeFriendRequest,
 } from '../util/CreateBalanceUtil';
@@ -33,6 +34,21 @@ class FriendRequestController {
 
       if (!emailToInvite) {
         return res.status(200).json({ err: 'O email é obrigatório' });
+      }
+
+      if (emailToInvite === req.email) {
+        return res.status(200).json({ err: 'Você não pode se auto convidar' });
+      }
+
+      const verify = await checkIfAlreadyHasActiveBalance(
+        req.email,
+        emailToInvite
+      );
+
+      if (!verify) {
+        return res
+          .status(200)
+          .json({ err: 'Já existe um registro ativo para este email' });
       }
 
       const friendRequest = await FriendRequestMongo.findOne({

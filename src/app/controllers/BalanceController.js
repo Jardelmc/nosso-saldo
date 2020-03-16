@@ -15,7 +15,9 @@ class BalanceController {
       const formatName = name => {
         try {
           const fristName = name.split(' ');
-          return fristName[0];
+          return `${fristName[0].charAt(0).toUpperCase()}${fristName[0].slice(
+            1
+          )}`;
         } catch (error) {
           return 'Usuário';
         }
@@ -88,7 +90,7 @@ class BalanceController {
         historic[i].cost = formatValue(historic[i].cost);
       }
 
-      return res.status(200).json({ payload: historic });
+      return res.status(200).json({ payload: historic.reverse() });
     }
 
     return res.status(200).json({ err: 'Vazio' });
